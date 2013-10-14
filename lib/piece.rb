@@ -48,7 +48,7 @@ class Piece
   end
 
   def white_piece_logic(new_position)
-    if !king && new_position[0] == position[0]+2 && new_position[1] == position[1]+2 && model.board[position[0]+1][position[1]+1].color == :black
+    if new_position[0] == position[0]+2 && new_position[1] == position[1]+2 && model.board[position[0]+1][position[1]+1].color == :black
       model.board[position[0]+1][position[1]+1] = ""
     elsif new_position[0] == position[0]+2 && new_position[1] == position[1]-2 && model.board[position[0]+1][position[1]-1].color == :black
       model.board[position[0]+1][position[1]-1] = ""
@@ -56,6 +56,12 @@ class Piece
       true
     elsif new_position[0] == position[0]+1 && new_position[1] == position[1]+1
       true
+    elsif new_position[0] == position[0]+4 && new_position[1] == position[1]+4 && model.board[position[0]+1][position[1]+1].color == :black && model.board[position[0]+2][position[1]+2] == "" && model.board[position[0]+3][position[1]+3].color == :black
+      model.board[position[0]+1][position[1]+1] = ""
+      model.board[position[0]+3][position[1]+3] = ""
+    elsif new_position[0] == position[0]+4 && new_position[1] == position[1]-4 && model.board[position[0]+1][position[1]-1].color == :black && model.board[position[0]+2][position[1]-2] == "" && model.board[position[0]+3][position[1]-3].color == :black
+      model.board[position[0]+1][position[1]-1] = ""
+      model.board[position[0]+3][position[1]-3] = ""
     elsif king && new_position[0] == position[0]-1 && new_position[1] == position[1]-1
       true
     elsif king && new_position[0] == position[0]-1 && new_position[1] == position[1]+1
@@ -74,6 +80,12 @@ class Piece
       true
     elsif new_position[0] == position[0]-1 && new_position[1] == position[1]+1
       true
+    elsif new_position[0] == position[0]-4 && new_position[1] == position[1]+4 && model.board[position[0]-1][position[1]+1].color == :white && model.board[position[0]-2][position[1]+2] == "" && model.board[position[0]-3][position[1]+3].color == :white
+      model.board[position[0]-1][position[1]+1] = ""
+      model.board[position[0]-3][position[1]+3] = ""
+    elsif new_position[0] == position[0]-4 && new_position[1] == position[1]-4 && model.board[position[0]-1][position[1]-1].color == :white && model.board[position[0]-2][position[1]-2] == "" && model.board[position[0]-3][position[1]-3].color == :white
+      model.board[position[0]-1][position[1]-1] = ""
+      model.board[position[0]-3][position[1]-3] = ""
     elsif king && new_position[0] == position[0]+1 && new_position[1] == position[1]+1
       true
     elsif king && new_position[0] == position[0]+1 && new_position[1] == position[1]-1

@@ -141,4 +141,50 @@ class PieceTest < Minitest::Test
     p13.move_to([1,1])
     assert_equal cm.board[1][1], p13
   end
+
+  def test_white_pieces_can_double_jump
+    p00 = cm.board[0][0]
+    cm.board[1][1] = Piece.new(cm, :black)
+    cm.board[2][2] = ""
+    cm.board[3][3] = Piece.new(cm, :black)
+    cm.board[4][4] = ""
+    p00.move_to([4,4])
+
+    assert "", cm.board[1][1]
+    assert "", cm.board[3][3]
+  end
+
+  def test_white_pieces_can_double_jump_to_the_left
+    p06 = cm.board[0][6]
+    cm.board[1][5] = Piece.new(cm, :black)
+    cm.board[2][4] = ""
+    cm.board[3][3] = Piece.new(cm,:black)
+    cm.board[4][2] = ""
+    p06.move_to([4,2])
+    assert "", cm.board[1][5]
+    assert "", cm.board[3][3]
+  end
+
+  def test_black_pieces_can_double_jump
+    p77 = cm.board[7][7]
+    cm.board[6][6] = Piece.new(cm, :white)
+    cm.board[5][5] = ""
+    cm.board[4][4] = Piece.new(cm, :white)
+    cm.board[3][3] = ""
+    p77.move_to([3,3])
+    assert "", cm.board[6][6]
+    assert_equal  "", cm.board[4][4]
+  end
+
+  def test_black_pieces_can_double_jump_the_right
+    p71 = cm.board[7][1]
+    cm.board[6][2] = Piece.new(cm, :white)
+    cm.board[5][3] = ""
+    cm.board[4][4] = Piece.new(cm, :white)
+    cm.board[3][5] = ""
+    p71.move_to([3,5])
+
+    assert "", cm.board[6,2]
+    assert_equal "", cm.board[4][4]
+  end
 end

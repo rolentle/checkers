@@ -1,7 +1,7 @@
 require './lib/piece'
 
 class CheckersModel
-  attr_accessor :board
+  attr_accessor :board, :white_pieces, :black_pieces
   def initialize
     create_board
     populate_board
@@ -44,6 +44,34 @@ class CheckersModel
 
     board[7].each_index do |index|
       board[7][index] = Piece.new(self, :black) if index.odd?
+    end
+  end
+
+  def all_pieces
+    board.flatten.select { |square| square.class == Piece }
+  end
+
+  def black_pieces
+    all_pieces.select { |piece| piece.color == :black }
+  end
+
+  def white_pieces
+    all_pieces.select { |piece| piece.color == :white }
+  end
+
+  def game_over?
+    !white_pieces || !black_pieces
+  end
+
+  def find_by_position(subject_position)
+    all_pieces.find { |piece| piece.position == subject_position}
+  end
+
+  def winner?
+    if !white_pieces
+      :black
+    elsif !black_pieces
+      :white
     end
   end
 end
